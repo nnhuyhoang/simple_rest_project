@@ -10,7 +10,4 @@ RUN apk --no-cache add ca-certificates
 RUN apk --no-cache add tzdata
 WORKDIR /app
 COPY --from=builder /go/src/github.com/nnhuyhoang/simple_rest_project/backend/server /app
-COPY --from=migrate /bin/sql-migrate /bin
-COPY dbconfig.yml /app
-COPY migrations /app/migrations
 CMD ["/app/server"]  

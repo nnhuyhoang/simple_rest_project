@@ -1,0 +1,44 @@
+name: PR CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+    
+jobs:
+  commitlint:
+    name: Linting commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: wagoid/commitlint
+        uses: wagoid/commitlint-github-action@v3
+  test:
+    name: Testing source
+    strategy:
+      matrix:
+        go-version: [1.15.x, 1.16.x]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        if: success()
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run test
+        run: go test -cover ./... 
+  build:
+    name: Build source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: build the docker image
+        run: docker build . --file Dockerfile --tag backend:$(date +%s)
+
