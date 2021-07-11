@@ -72,7 +72,7 @@ A brief description of the layout:
 
 1. Init database - `make init`
 2. Migrate database - `make migrate-up`
-3. Start server - `make run`
+3. Run server - `make run`
 4. Seed data for local - `make seed`
 
 ### Run test
