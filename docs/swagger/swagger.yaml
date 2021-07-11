@@ -1,0 +1,1037 @@
+definitions:
+  handler.createInspectionRequest:
+    properties:
+      date:
+        example: "2021-06-15"
+        type: string
+      siteId:
+        example: 1
+        type: integer
+      userId:
+        example: 2
+        type: integer
+    required:
+    - date
+    - siteId
+    - userId
+    type: object
+  handler.createIssueRequest:
+    properties:
+      description:
+        example: something wrong
+        type: string
+      inspectionId:
+        example: 2
+        type: integer
+      siteId:
+        example: 1
+        type: integer
+      sparePartRequests:
+        items:
+          $ref: '#/definitions/handler.sparePartRequest'
+        type: array
+    required:
+    - inspectionId
+    - siteId
+    type: object
+  handler.extraOrder:
+    properties:
+      quantity:
+        type: integer
+      sparePartId:
+        type: integer
+    required:
+    - quantity
+    - sparePartId
+    type: object
+  handler.inspectionListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Inspection'
+        type: array
+    type: object
+  handler.inspectionResponse:
+    properties:
+      data:
+        $ref: '#/definitions/model.Inspection'
+    type: object
+  handler.issueResponse:
+    properties:
+      data:
+        $ref: '#/definitions/model.Issue'
+    type: object
+  handler.issueSparePartListReponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.IssueSparePart'
+        type: array
+    type: object
+  handler.loginData:
+    properties:
+      accessToken:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      fullName:
+        type: string
+      lastName:
+        type: string
+      roleCode:
+        type: string
+      roleName:
+        type: string
+      userId:
+        type: integer
+    type: object
+  handler.loginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  handler.loginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/handler.loginData'
+    type: object
+  handler.purchaseOrderListResponse:
+    properties:
+      purchaseRequest:
+        items:
+          $ref: '#/definitions/model.PurchaseRequest'
+        type: array
+    type: object
+  handler.purchaseOrderRequest:
+    properties:
+      description:
+        example: order for something
+        type: string
+      extraOrders:
+        items:
+          $ref: '#/definitions/handler.extraOrder'
+        type: array
+      issueOrderIds:
+        items:
+          type: integer
+        type: array
+    type: object
+  handler.purchaseOrderResponse:
+    properties:
+      purchaseRequest:
+        $ref: '#/definitions/model.PurchaseRequest'
+    type: object
+  handler.signupRequest:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      rePassword:
+        type: string
+      roleCode:
+        type: string
+    required:
+    - email
+    - firstName
+    - password
+    - phone
+    - rePassword
+    - roleCode
+    type: object
+  handler.siteListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Site'
+        type: array
+    type: object
+  handler.sparePartListReponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.SparePart'
+        type: array
+    type: object
+  handler.sparePartRequest:
+    properties:
+      quantity:
+        example: 100
+        type: integer
+      sparePartId:
+        example: 1
+        type: integer
+    required:
+    - quantity
+    - sparePartId
+    type: object
+  handler.updateInspectionRequest:
+    properties:
+      remark:
+        example: nothing wrong
+        type: string
+      status:
+        example: completed
+        type: string
+    required:
+    - status
+    type: object
+  handler.updateIssueRequest:
+    properties:
+      description:
+        example: something wrong
+        type: string
+      status:
+        example: completed
+        type: string
+    type: object
+  handler.usersResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.User'
+        type: array
+    type: object
+  model.Error:
+    properties:
+      Code:
+        type: integer
+      Message:
+        type: string
+    type: object
+  model.Inspection:
+    properties:
+      createdAt:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      issues:
+        items:
+          $ref: '#/definitions/model.Issue'
+        type: array
+      remark:
+        type: string
+      site:
+        $ref: '#/definitions/model.Site'
+      siteId:
+        type: integer
+      status:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/model.User'
+      userId:
+        type: integer
+    type: object
+  model.Issue:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      inspectionId:
+        type: integer
+      issueSparePart:
+        items:
+          $ref: '#/definitions/model.IssueSparePart'
+        type: array
+      siteId:
+        type: integer
+      status:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: integer
+    type: object
+  model.IssueSparePart:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      issueId:
+        type: integer
+      quantity:
+        type: integer
+      sparePart:
+        $ref: '#/definitions/model.SparePart'
+      sparePartId:
+        type: integer
+      status:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.PurchaseRequest:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      orderDate:
+        type: string
+      purchaseSparePart:
+        items:
+          $ref: '#/definitions/model.PurchaseSparePart'
+        type: array
+      status:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: integer
+    type: object
+  model.PurchaseSparePart:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      purchaseRequestId:
+        type: integer
+      quantity:
+        type: integer
+      sparePartCode:
+        type: string
+      sparePartId:
+        type: integer
+      sparePartName:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.Role:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.Site:
+    properties:
+      address:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      inspections:
+        items:
+          $ref: '#/definitions/model.Inspection'
+        type: array
+      issues:
+        items:
+          $ref: '#/definitions/model.Issue'
+        type: array
+      name:
+        type: string
+      status:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.SparePart:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      inStock:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.SuccessResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.User:
+    properties:
+      Id:
+        type: integer
+      createdAt:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      fullName:
+        type: string
+      hashedPassword:
+        type: string
+      lastName:
+        type: string
+      phoneNumber:
+        type: string
+      role:
+        $ref: '#/definitions/model.Role'
+      roleId:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a Usecase2B server.
+  title: Swagger Usecase2B API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: login request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.loginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.loginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: login
+      tags:
+      - Authentication
+  /auth/signup:
+    post:
+      consumes:
+      - application/json
+      description: signup
+      parameters:
+      - description: signup request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.signupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/model.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: signup
+      tags:
+      - Authentication
+  /inspections:
+    get:
+      consumes:
+      - application/json
+      description: FT get list of sites need to inspect by userId and date
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: "2021-06-13"
+        in: query
+        name: date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.inspectionListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get inspection by userId handler
+      tags:
+      - Inspection
+    post:
+      consumes:
+      - application/json
+      description: Manager will inspection for FT
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: create inspect form
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.createInspectionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.inspectionResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: create inspection handler
+      tags:
+      - Inspection
+  /inspections/{inspection_id}:
+    get:
+      consumes:
+      - application/json
+      description: get inspection by id
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: inspection_id
+        in: path
+        name: inspection_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.inspectionListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get inspection by Id handler
+      tags:
+      - Inspection
+    put:
+      consumes:
+      - application/json
+      description: FT put status and remark after inspection
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: inspection_id
+        in: path
+        name: inspection_id
+        required: true
+        type: string
+      - description: update inspect form
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.updateInspectionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.inspectionResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: update inspection handler
+      tags:
+      - Inspection
+  /issue-spare-parts:
+    get:
+      consumes:
+      - application/json
+      description: before creating purchase request, manger call this to get list
+        of spare parts which is ordered but not enough in iventory
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.issueSparePartListReponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get all issue spare part handler
+      tags:
+      - IssueSparePart
+  /issues:
+    post:
+      consumes:
+      - application/json
+      description: FT create issue
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.createIssueRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.issueResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: create issue handler
+      tags:
+      - Issue
+  /issues/{issue_id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete issue by issue id
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: issue_id
+        in: path
+        name: issue_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/model.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: delete issue handler
+      tags:
+      - Issue
+    get:
+      consumes:
+      - application/json
+      description: get issue by id
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: issue_id
+        in: path
+        name: issue_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.issueResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get issue by Id handler
+      tags:
+      - Issue
+    put:
+      consumes:
+      - application/json
+      description: FT update status and description for issue
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: issue_id
+        in: path
+        name: issue_id
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.updateIssueRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.issueResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: create issue handler
+      tags:
+      - Issue
+  /purchase-requests:
+    get:
+      consumes:
+      - application/json
+      description: get all purchase requests
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.purchaseOrderListResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get all purchase request handler
+      tags:
+      - PurchaseRequest
+    post:
+      consumes:
+      - application/json
+      description: Manager will create puchase request
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: create purchase request form
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.purchaseOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.purchaseOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: create puchase request handler
+      tags:
+      - PurchaseRequest
+  /sites:
+    get:
+      consumes:
+      - application/json
+      description: Manager dashboard call this
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: "2021-06-13"
+        in: query
+        name: date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.siteListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get site by date handler
+      tags:
+      - Site
+  /sites/{site_id}:
+    get:
+      consumes:
+      - application/json
+      description: site detail for a day
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: site_id
+        in: path
+        name: site_id
+        required: true
+        type: string
+      - description: "2021-06-13"
+        in: query
+        name: date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.siteListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get site by id with date handler
+      tags:
+      - Site
+  /spare-parts:
+    get:
+      consumes:
+      - application/json
+      description: get list of spar part
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.sparePartListReponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get all spare part handler
+      tags:
+      - SparePart
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: get user
+      parameters:
+      - description: 'Bearer '
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: role_code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/handler.usersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: get user handler
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
